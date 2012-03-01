@@ -61,7 +61,7 @@ public class Sprite
 		BOTTOM_RIGHT
 	}
 	
-	private Bitmap loadBitmap(String fname, Context context)
+	private static Bitmap loadBitmap(String fname, Context context)
 	{
 		Bitmap bitmap = null;
 		

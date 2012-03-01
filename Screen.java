@@ -1,8 +1,14 @@
 package com.jfboily.fxgea;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.util.Log;
 
 
 public abstract class Screen
@@ -25,6 +31,9 @@ public abstract class Screen
 	private Fade fader = null;
 	private int fade;
 	
+	// background
+	private Bitmap bitmapBG = null;
+	
 	
 	@SuppressWarnings("unchecked")
 	public Screen(Game game) 
@@ -43,7 +52,14 @@ public abstract class Screen
 	
 	public void render(Canvas c)
 	{
-		c.drawColor(Color.BLACK);
+		if(bitmapBG != null)
+		{
+			c.drawBitmap(bitmapBG, 0, 0, null);
+		}
+		else
+		{
+			c.drawColor(Color.BLACK);
+		}
 	
 		// dessine les sprites, plane 4 --> plane 0
 		
@@ -250,5 +266,23 @@ public abstract class Screen
 	public boolean isFading()
 	{
 		return fader != null;
+	}
+	
+	public void createStaticBG(String fname)
+	{	
+		try
+		{
+			InputStream is = Game.getGame().getAssets().open(fname);
+			bitmapBG = BitmapFactory.decodeStream(is);
+		}
+		catch(IOException e)
+		{
+			Log.e("Screen:createStaticBG", "Impossible d'ouvrir le fichier "+fname);
+		}
+	}
+	
+	public void createStaticTiledBG(String tilesetFname, String tiledataFname, int tileW, int tileH, int mapW, int mapH)
+	{
+		
 	}
 }
