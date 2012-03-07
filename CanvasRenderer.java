@@ -19,7 +19,7 @@ public class CanvasRenderer extends SurfaceView implements Runnable
 	private int fps;
 	private int tempoFps = 0;
 	
-	private boolean running;
+	private boolean running = false;
 	
 	private Screen screen;
 	private Input input;
@@ -79,20 +79,10 @@ public class CanvasRenderer extends SurfaceView implements Runnable
 		while(running)
 		{
 			startTime = System.currentTimeMillis();
-			
+			screen = game.getCurrentScreen();
 			//verifie que la surface est valide
 			if(holder.getSurface().isValid())
 			{
-				input = game.getInput();
-				screen = game.getCurrentScreen();
-				
-				// update inputs
-				input.update();
-				
-				// update the screen
-				screen.superUpdate(startTime, deltaTime);
-				
-
 				// rendu du Screen dans le backBuffer
 				screen.render(backCanvas);
 				
@@ -119,7 +109,7 @@ public class CanvasRenderer extends SurfaceView implements Runnable
 			
 			endTime = System.currentTimeMillis();
 			deltaTime = endTime - startTime;
-			long sleepTime = deltaTime < 200 ? 200 - deltaTime: 0;
+			long sleepTime = deltaTime < 16 ? 16 - deltaTime: 0;
 			deltaTime+=sleepTime;
 			try
 			{

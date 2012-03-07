@@ -15,6 +15,7 @@ public abstract class Game extends Activity
 	private Audio audio;
 	private Input input;
 	private CanvasRenderer renderer;
+	private LogicUpdater logic;
 	
 	private static Game instance;
 	private float scaleX;
@@ -64,6 +65,7 @@ public abstract class Game extends Activity
         audio = new Audio(this);
         input = new Input(this, renderer, autoScale);
 
+        logic = new LogicUpdater(this);
         // creation de l'ecran
         curScreen = getStartScreen();
         
@@ -91,6 +93,7 @@ public abstract class Game extends Activity
 	{
 		super.onPause();
 		audio.pause();
+		logic.pause();
 		renderer.pause();
 		
 		if(isFinishing())
@@ -106,6 +109,7 @@ public abstract class Game extends Activity
 	{
 		super.onResume();
 		audio.resume();
+		logic.resume();
 		renderer.resume();
 	}
 	
