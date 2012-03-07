@@ -24,6 +24,8 @@ public class Sprite
 	private boolean animRunning;
 	
 	private float vx, vy;
+	private float dirX, dirY;
+	private float speed;
 	
 	private ArrayList<int[]> anims;
 	private int[] curAnim;
@@ -263,17 +265,31 @@ public class Sprite
 		updateDstRect();
 	}
 	
-	public void move()
+	public void move(long deltaTime)
 	{
-		x += vx;
-		y += vy;
+		float fact = (float)deltaTime / 1000.0f;
+		x += (vx * fact);
+		y += (vy * fact);
 		updateDstRect();
+	}
+	
+	public void moveDir(long deltaTime)
+	{
+		float fact = (float)deltaTime / 1000.0f;
+		x += (dirX * fact * speed);
+		y += (dirY * fact * speed);
+		updateDstRect();		
 	}
 	
 	public void setSpeed(float vx, float vy)
 	{
 		this.vx = vx;
 		this.vy = vy;
+	}
+	
+	public void setSpeed(float speed)
+	{
+		this.speed = speed;
 	}
 	
 	public int getX()
@@ -389,9 +405,17 @@ public class Sprite
 	
 	public void rotateTo(int x, int y)
 	{
-		float delta = -90.0f;
+		float delta = 90.0f;
 
-		angle = (float)(Math.atan2(this.y - y, this.x - x) / Math.PI * 180) + delta;
+		//calcule le vecteur de direction 
+		float dx, dy, norme;
+		dx = (float)x - this.x;
+		dy = (float)y - this.y;
+		norme = (float)Math.sqrt(dx*dx + dy*dy);
+		dirX = (float)(dx / norme);
+		dirY = (float)(dy / norme);
+		
+		angle = (float)(Math.atan2(dy, dx) / Math.PI * 180) + delta;
 	}
 	
 	public boolean collidesWith(Sprite s2)

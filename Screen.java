@@ -1,8 +1,18 @@
 package com.jfboily.fxgea;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -281,8 +291,13 @@ public abstract class Screen
 		}
 	}
 	
-	public void createStaticTiledBG(String tilesetFname, String tiledataFname, int tileW, int tileH, int mapW, int mapH)
+	public void setBackground(Bitmap bitmap)
 	{
-		
+		bitmapBG = bitmap;
+	}
+	
+	public void createStaticTiledBG(String tilEDfilename)
+	{
+
 	}
 }
