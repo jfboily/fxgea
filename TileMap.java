@@ -41,7 +41,7 @@ public class TileMap
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			builder.setEntityResolver(new EntityResolver() {
 				
-				@Override
+				
 				public InputSource resolveEntity(String publicId, String systemId)
 						throws SAXException, IOException {
 					// TODO Auto-generated method stub

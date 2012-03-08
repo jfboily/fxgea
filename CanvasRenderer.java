@@ -119,8 +119,8 @@ public class CanvasRenderer extends SurfaceView implements Runnable
 			
 			endTime = System.currentTimeMillis();
 			deltaTime = endTime - startTime;
-			long sleepTime = deltaTime < 33 ? 33 - deltaTime: 0;
-
+			long sleepTime = deltaTime < 200 ? 200 - deltaTime: 0;
+			deltaTime+=sleepTime;
 			try
 			{
 				Thread.sleep(sleepTime);
