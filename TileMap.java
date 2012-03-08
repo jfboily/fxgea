@@ -159,7 +159,14 @@ public class TileMap
 	{
 		int mapX = screenX / tileWidth;
 		int mapY = screenY / tileHeight;
-		return layers[layer][mapY*mapWidth+mapX];
+		Tile ret = null;
+		
+		if(mapX >=0 && mapX < mapWidth && mapY >=0 && mapY < mapHeight)
+		{
+			ret =  layers[layer][mapY*mapWidth+mapX];
+		}
+
+		return ret;
 	}
 	
 	public int getTileWidth()

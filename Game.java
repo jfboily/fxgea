@@ -86,6 +86,7 @@ public abstract class Game extends Activity
 		curScreen.dispose();
 		curScreen = null;
 		curScreen = newScreen;
+		renderer.clearBackBuffer();
 	}
 	
 	@Override

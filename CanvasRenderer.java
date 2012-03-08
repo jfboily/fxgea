@@ -177,4 +177,9 @@ public class CanvasRenderer extends SurfaceView implements Runnable
 		return startTime;
 	}
 	
+	public void clearBackBuffer()
+	{
+		backCanvas.drawColor(Color.BLACK);
+	}
+	
 }
