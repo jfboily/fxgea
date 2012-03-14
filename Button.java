@@ -11,21 +11,18 @@ public class Button implements Touchable
 	private Sprite sprite;
 	private boolean active;
 	
-	public Button(int x, int y, String fname, Screen screen)
+	public Button(int x, int y, int w, int h, String fname, Screen screen)
 	{
 		try
 		{
 			//InputStream is = Game.getGame().getAssets().open(fname);
 			//bitmap = BitmapFactory.decodeStream(is);
 			
-			sprite = screen.createSprite(fname, Screen.PLANE_0);
+			sprite = screen.createSprite(fname, w, h, Screen.PLANE_0);
 			sprite.setPos(x, y);
-			rect.left = x;
-			rect.top = y;
-			rect.right = x + sprite.getWidth();
-			rect.bottom = y + sprite.getHeight();
 			Game.getGame().getInput().registerTouchable(this);
 			active = true;
+			sprite.setFrame(0);
 		}
 		catch(Exception e)
 		{
@@ -68,12 +65,16 @@ public class Button implements Touchable
 
 	public Rect getRect() {
 		// TODO Auto-generated method stub
-		return rect;
+		return sprite.getRect();
 	}
 	
 	public void setActive(boolean active)
 	{
 		this.active = active;
+		if(active)
+			sprite.setFrame(0);
+		else
+			sprite.setFrame(1);
 	}
 	
 	public void setVisible(boolean visible)
@@ -85,5 +86,10 @@ public class Button implements Touchable
 	public void setFlashing(boolean flashing)
 	{
 		sprite.setFlashing(flashing);
+	}
+	
+	public void setPos(int x, int y)
+	{
+		sprite.setPos(x, y);
 	}
 }

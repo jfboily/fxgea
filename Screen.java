@@ -57,6 +57,8 @@ public abstract class Screen
 		
 		tempoNewState = true;
 		fade = 255;
+		
+		game.getInput().unregisterAllTouchables();
 	}
 	
 	
@@ -76,6 +78,7 @@ public abstract class Screen
 		for(int i = sprites.length - 1; i >= 0; i--)
 		{
 			for(int j = 0; j < sprites[i].size(); j++)
+			//for(Sprite j : sprites[i])
 			{
 				sprites[i].get(j).draw(c);
 			}

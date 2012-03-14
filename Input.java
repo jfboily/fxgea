@@ -141,9 +141,10 @@ public class Input implements OnTouchListener
 		
 		if(newTouchDown)
 		{
-			for(int i = touchables.size()-1; i >= 0; i--)
+			//for(int i = touchables.size()-1; i >= 0; i--)
+			for(Touchable t : touchables)
 			{
-				Touchable t = touchables.get(i);
+				//Touchable t = touchables.get(i);
 				Rect r = t.getRect();
 				
 				if(r.contains(touchX, touchY))
