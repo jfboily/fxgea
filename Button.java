@@ -39,7 +39,7 @@ public class Button implements Touchable
 		listener = obj;
 	}
 
-	public void onTouch(int x, int y) {
+	public boolean onTouch(int x, int y) {
 		// TODO Auto-generated method stub
 		if(listener == null)
 		{
@@ -48,17 +48,22 @@ public class Button implements Touchable
 		}
 		
 		if(active && sprite.isVisible())
+		{
 			listener.buttonClick(this);
+			return true;
+		}
+		
+		return false;
 	}
 
-	public void onMove(int x, int y) {
+	public boolean onMove(int x, int y) {
 		// TODO Auto-generated method stub
-		
+		return true;
 	}
 
-	public void onRelease(int x, int y) {
+	public boolean onRelease(int x, int y) {
 		// TODO Auto-generated method stub
-		
+		return true;
 	}
 
 	public Rect getRect() {
@@ -74,5 +79,11 @@ public class Button implements Touchable
 	public void setVisible(boolean visible)
 	{
 		sprite.setVisible(visible);
+		this.active = visible;
+	}
+	
+	public void setFlashing(boolean flashing)
+	{
+		sprite.setFlashing(flashing);
 	}
 }

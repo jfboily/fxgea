@@ -148,9 +148,11 @@ public class Input implements OnTouchListener
 				
 				if(r.contains(touchX, touchY))
 				{
-					t.onTouch(touchX, touchY);
-					selectedTouchable = t;
-					break;
+					if(t.onTouch(touchX, touchY))
+					{
+						selectedTouchable = t;
+						break;
+					}
 				}
 			}
 		}

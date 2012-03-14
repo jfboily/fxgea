@@ -23,6 +23,11 @@ public class Sprite
 	private int curFrame;
 	private boolean animRunning;
 	
+	private boolean flashing = false;
+	private long flashingTimer = 0;
+	private long flashingDelay = 250;
+	private boolean flashingVisible = false;
+	
 	private float vx, vy;
 	private float dirX, dirY;
 	private float speed;
@@ -158,6 +163,8 @@ public class Sprite
 		if(!visible)
 			return;
 		
+
+		
 		if(animRunning)
 		{
 			setFrame(curAnim[animFrame]);
@@ -178,6 +185,20 @@ public class Sprite
 						curAnim = null;
 					}
 				}
+			}
+		}
+		
+		if(flashing)
+		{
+			if(time > flashingTimer )
+			{
+				flashingVisible = !flashingVisible;
+				flashingTimer = time + flashingDelay;
+			}
+			
+			if(!flashingVisible)
+			{
+				return;
 			}
 		}
 
@@ -401,6 +422,8 @@ public class Sprite
 	public void rotate(float angle)
 	{
 		this.angle = angle;
+		dirX = (float) Math.sin(angle+(Math.PI/2.0));
+		dirY = (float) Math.cos(angle+(Math.PI/2.0));
 	}
 	
 	public void rotateTo(int x, int y)
@@ -415,7 +438,7 @@ public class Sprite
 		dirX = (float)(dx / norme);
 		dirY = (float)(dy / norme);
 		
-		angle = (float)(Math.atan2(dy, dx) / Math.PI * 180) + delta;
+		this.angle = (float)(Math.atan2(dy, dx) / Math.PI * 180) + delta;
 	}
 	
 	public boolean collidesWith(Sprite s2)
@@ -437,5 +460,21 @@ public class Sprite
 	public int getAlpha()
 	{
 		return alpha;
+	}
+	
+	public void setFlashing(boolean flashing)
+	{
+		this.flashing = flashing;
+
+		if(flashing)
+		{
+			flashingTimer = game.getTime() + flashingDelay;
+			flashingVisible = false;
+		}
+	}
+	
+	public void setFlashingSpeed(long delay)
+	{
+		this.flashingDelay = delay;
 	}
 }

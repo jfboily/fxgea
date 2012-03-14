@@ -179,6 +179,16 @@ public class TileMap
 		return tileHeight;
 	}
 	
+	public int getMapWidth()
+	{
+		return mapWidth;
+	}
+	
+	public int getMapHeight()
+	{
+		return mapHeight;
+	}
+	
 	
 	public class Tile
 	{

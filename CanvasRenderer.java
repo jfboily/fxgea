@@ -87,11 +87,11 @@ public class CanvasRenderer extends SurfaceView implements Runnable
 				screen.render(backCanvas);
 				
 						// draw debug infos
-						debugPaint.setColor(0x55550000);
-						backCanvas.drawRect(0, 0, 100, 32, debugPaint);
-						debugPaint.setColor(0x77ffffff);
-						debugPaint.setTextSize(24);		
-						backCanvas.drawText("FPS : "+fps, 4, 24, debugPaint);
+//						debugPaint.setColor(0x55550000);
+//						backCanvas.drawRect(0, 0, 100, 32, debugPaint);
+//						debugPaint.setColor(0x77ffffff);
+//						debugPaint.setTextSize(24);		
+//						backCanvas.drawText("FPS : "+fps, 4, 24, debugPaint);
 				
 				// draw le backBuffer sur l'ecran
 				Canvas canvas = holder.lockCanvas();
