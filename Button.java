@@ -83,6 +83,16 @@ public class Button implements Touchable
 		this.active = visible;
 	}
 	
+	public boolean isVisible()
+	{
+		return sprite.isVisible();
+	}
+	
+	public boolean isActive()
+	{
+		return active;
+	}
+	
 	public void setFlashing(boolean flashing)
 	{
 		sprite.setFlashing(flashing);
@@ -91,5 +101,15 @@ public class Button implements Touchable
 	public void setPos(int x, int y)
 	{
 		sprite.setPos(x, y);
+	}
+	
+	public int getX()
+	{
+		return sprite.getX();
+	}
+	
+	public int getY()
+	{
+		return sprite.getY();
 	}
 }
