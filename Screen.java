@@ -44,6 +44,8 @@ public abstract class Screen
 	// background
 	private Bitmap bitmapBG = null;
 	
+	private Sprite[] tempos = new Sprite[1000];
+	
 	
 	@SuppressWarnings("unchecked")
 	public Screen(Game game) 
@@ -73,7 +75,7 @@ public abstract class Screen
 			c.drawColor(Color.BLACK);
 		}
 	
-		// dessine les sprites, plane 4 --> plane 0
+		// dessine les sprites, plane 4 --> plane 1
 		
 		for(int i = sprites.length - 1; i >= 0; i--)
 		{
@@ -83,7 +85,6 @@ public abstract class Screen
 				sprites[i].get(j).draw(c);
 			}
 		}
-		
 		// appelle la methode draw definie par la classe utilisateur
 		draw(c);
 	}

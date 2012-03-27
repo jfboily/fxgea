@@ -17,6 +17,7 @@ import org.xml.sax.SAXException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.Log;
 
@@ -31,7 +32,12 @@ public class TileMap
 	private int nbLayers;
 	private Bitmap bitmapTileset;
 	
-	public void load(String tilEDfilename)
+	public TileMap(String tilEDfname)
+	{
+		load(tilEDfname);
+	}
+	
+	private void load(String tilEDfilename)
 	{
 		try
 		{
@@ -121,8 +127,10 @@ public class TileMap
 	
 	public Bitmap renderAllLayers()
 	{
-		Bitmap bitmap = Bitmap.createBitmap(mapWidth * tileWidth, mapHeight * tileHeight, Bitmap.Config.ARGB_8888);
+		//Bitmap bitmap = Bitmap.createBitmap(mapWidth * tileWidth, mapHeight * tileHeight, Bitmap.Config.ARGB_8888);
+		Bitmap bitmap = Bitmap.createBitmap(Game.getGame().getWidth(), Game.getGame().getHeight(), Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(bitmap);
+		canvas.drawColor(Color.BLACK);
 		Rect src = new Rect();
 		Rect dst = new Rect();
 		Tile tile;
