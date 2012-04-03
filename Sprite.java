@@ -437,8 +437,26 @@ public class Sprite
 		norme = (float)Math.sqrt(dx*dx + dy*dy);
 		dirX = (float)(dx / norme);
 		dirY = (float)(dy / norme);
-		
 		this.angle = (float)(Math.atan2(dy, dx) / Math.PI * 180) + delta;
+	}
+	
+	public void setDir(float angle)
+	{
+		dirX = (float) Math.sin(angle+(Math.PI/2.0));
+		dirY = (float) Math.cos(angle+(Math.PI/2.0));	
+	}
+	
+	public void setDirTo(int x, int y)
+	{
+		float delta = 90.0f;
+
+		//calcule le vecteur de direction 
+		float dx, dy, norme;
+		dx = (float)x - this.x;
+		dy = (float)y - this.y;
+		norme = (float)Math.sqrt(dx*dx + dy*dy);
+		dirX = (float)(dx / norme);
+		dirY = (float)(dy / norme);
 	}
 	
 	public boolean collidesWith(Sprite s2)
