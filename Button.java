@@ -112,4 +112,9 @@ public class Button implements Touchable
 	{
 		return sprite.getY();
 	}
+	
+	public Sprite getSprite()
+	{
+		return sprite;
+	}
 }
