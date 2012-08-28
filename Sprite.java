@@ -313,6 +313,21 @@ public class Sprite
 		this.speed = speed;
 	}
 	
+	public float getSpeed()
+	{
+		return speed;
+	}
+	
+	public float getVX()
+	{
+		return vx;
+	}
+	
+	public float getVY()
+	{
+		return vy;
+	}
+	
 	public int getX()
 	{
 		return (int)x;
@@ -350,6 +365,11 @@ public class Sprite
 		{
 			curFrame = frame;
 		}
+	}
+	
+	public int getAnimFrame()
+	{
+		return curFrame;
 	}
 	
 	public int createAnim(int[] anim)

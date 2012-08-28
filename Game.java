@@ -96,7 +96,10 @@ public abstract class Game extends Activity
 		audio.pause();
 		logic.pause();
 		renderer.pause();
-		
+		if(curScreen != null)
+		{
+			curScreen.setPaused(true);
+		}
 		if(isFinishing())
 		{
 			//curScreen.destroy();

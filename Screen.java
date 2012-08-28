@@ -46,6 +46,8 @@ public abstract class Screen
 	
 	private Sprite[] tempos = new Sprite[1000];
 	
+	protected boolean paused = false;
+	
 	
 	@SuppressWarnings("unchecked")
 	public Screen(Game game) 
@@ -303,5 +305,15 @@ public abstract class Screen
 	public void createStaticTiledBG(String tilEDfilename)
 	{
 
+	}
+	
+	public boolean isPaused()
+	{
+		return paused;
+	}
+	
+	public void setPaused(boolean paused)
+	{
+		this.paused = paused;
 	}
 }

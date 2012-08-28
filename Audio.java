@@ -35,12 +35,17 @@ public class Audio
 		soundIds.put(resId, id);
 	}
 	
-	public void playSound(int resId, boolean loop)
+	public void stopSound(int soundID)
+	{
+		pool.stop(soundID);
+	}
+	
+	public int playSound(int resId, boolean loop)
 	{
 		Integer soundId = soundIds.get(resId);
 		if(soundId != null)
 		{
-			pool.play(soundId, sfxVolume, sfxVolume, 1, loop?-1:0, 0.0f);
+			return pool.play(soundId, sfxVolume, sfxVolume, 1, loop?-1:0, 1.0f);
 		}
 		else
 		{
@@ -48,7 +53,7 @@ public class Audio
 			Log.d("Fxgea:Audio", "Autoloading...");
 			loadSound(resId);
 			soundId = soundIds.get(resId);
-			pool.play(soundId, sfxVolume, sfxVolume, 1, loop?-1:0, 0.0f);
+			return pool.play(soundId, sfxVolume, sfxVolume, 1, loop?-1:0, 1.0f);
 		}
 	}
 	
