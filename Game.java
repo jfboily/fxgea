@@ -26,6 +26,7 @@ public abstract class Game extends Activity
 		return instance;
 	}
 	
+	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);

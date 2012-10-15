@@ -122,6 +122,7 @@ public class TileMap
 		catch (Exception e)
 		{
 			Log.e("Screen:createStaticTiledBG", "Exception au parse du fichier XML ("+e.getMessage()+")");
+			throw new RuntimeException(e.getLocalizedMessage());
 		}
 	}
 	
@@ -155,7 +156,29 @@ public class TileMap
 	
 	public Bitmap renderLayer(int layer)
 	{
-		return null;
+		//Bitmap bitmap = Bitmap.createBitmap(mapWidth * tileWidth, mapHeight * tileHeight, Bitmap.Config.ARGB_8888);
+		Bitmap bitmap = Bitmap.createBitmap(Game.getGame().getWidth(), Game.getGame().getHeight(), Bitmap.Config.ARGB_8888);
+		Canvas canvas = new Canvas(bitmap);
+		canvas.drawColor(Color.BLACK);
+		Rect src = new Rect();
+		Rect dst = new Rect();
+		Tile tile;
+		int nbTilesW = bitmapTileset.getWidth() / tileWidth;
+		int nbTilesH = bitmapTileset.getHeight() / tileHeight;
+		
+		for(int t = 0; t < layers[layer].length; t++)
+		{
+			tile = layers[layer][t];
+			int tileIndex = tile.type - 1;
+			src.top = (tileIndex / nbTilesW) * tileHeight;
+			src.left = (tileIndex % nbTilesW) * tileWidth;
+			src.right = src.left + tileWidth;
+			src.bottom = src.top + tileHeight;
+			dst = tile.screenRect;
+			canvas.drawBitmap(bitmapTileset, src, dst, null);
+		}
+		
+		return bitmap;
 	}
 	
 	public Tile getTileMap(int mapX, int mapY, int layer)

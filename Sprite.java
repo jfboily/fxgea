@@ -35,9 +35,11 @@ public class Sprite
 	private ArrayList<int[]> anims;
 	private int[] curAnim;
 	private int animDelay = 16;
-	private long animTime;
+	private long animTime = animDelay;
 	private boolean animLoop = false;;
 	private int animFrame = 0;
+	
+	private long oldTime = 0;
 	
 	private static HashMap<String, Bitmap> bitmaps = new HashMap<String, Bitmap>(100);
 	
@@ -144,7 +146,7 @@ public class Sprite
 		animRunning = false;
 		anims = new ArrayList<int[]>(10);
 		animDelay = 16;
-		animTime = game.getTime();
+		animTime = animDelay;
 		int[] defaultAnim = new int[nbFrames];
 		for(int i = 0; i < nbFrames; i++)
 		{
@@ -154,24 +156,19 @@ public class Sprite
 		setRefPixel(refPixel);
 	}
 	
-	
-	public void draw(Canvas c)
+	public void updateAnim()
 	{
 		long time = game.getTime();
-		
-		// ne dessine pas si invisible!
-		if(!visible)
-			return;
-		
-
-		
+		long deltaTime = time - oldTime;
+		oldTime = time;
+		animTime -= deltaTime;
 		if(animRunning)
 		{
 			setFrame(curAnim[animFrame]);
 			
-			if(time > animTime)
+			if(animTime <= 0)
 			{
-				animTime = time + animDelay;
+				animTime = animDelay;
 				animFrame++;
 				if(animFrame >= curAnim.length)
 				{
@@ -188,6 +185,17 @@ public class Sprite
 			}
 		}
 		
+	}
+	
+	public void draw(Canvas c)
+	{
+		long time = game.getTime();
+		
+		// ne dessine pas si invisible!
+		if(!visible)
+			return;
+				
+		
 		if(flashing)
 		{
 			if(time > flashingTimer )
@@ -201,6 +209,8 @@ public class Sprite
 				return;
 			}
 		}
+		
+		updateAnim();
 
 		//avec rotation!!!
 		c.save();
@@ -402,7 +412,7 @@ public class Sprite
 	public void setAnimDelay(int ms)
 	{
 		animDelay = ms;
-		animTime = game.getTime() + animDelay;
+		animTime = animDelay;
 	}
 	
 	public void stopAnim()
@@ -425,7 +435,7 @@ public class Sprite
 		if(curAnim != null)
 		{
 			animRunning = true;
-			animTime = game.getTime() + animDelay;
+			animTime = animDelay;
 		}
 	}	
 	

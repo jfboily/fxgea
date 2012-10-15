@@ -4,36 +4,30 @@ import android.graphics.Rect;
 import android.util.Log;
 
 
-public class Button implements Touchable
+public class Button extends Sprite implements Touchable
 {
 	private Rect rect = new Rect();
 	private ButtonClickListener listener = null;
-	private Sprite sprite;
+	//private Sprite sprite;
 	private boolean active;
 	
-	public Button(int x, int y, int w, int h, String fname, Screen screen)
+	public Button(int x, int y, int w, int h, String fname, Screen listener)
 	{
+		super(fname, w, h, Sprite.RefPixel.TOP_LEFT);
 		try
 		{
-			//InputStream is = Game.getGame().getAssets().open(fname);
-			//bitmap = BitmapFactory.decodeStream(is);
-			
-			sprite = screen.createSprite(fname, w, h, Screen.PLANE_0);
-			sprite.setPos(x, y);
+			setPos(x, y);
 			Game.getGame().getInput().registerTouchable(this);
 			active = true;
-			sprite.setFrame(0);
+			setFrame(0);
+			listener.addUISprite(this);
+			this.listener = (ButtonClickListener)listener;
 		}
 		catch(Exception e)
 		{
-			
+			Log.e("Fxgea:Button", "Exception in constructor : "+e.getMessage());
 		}
 		
-	}
-	
-	public void setButtonClickListener(ButtonClickListener obj)
-	{
-		listener = obj;
 	}
 
 	public boolean onTouch(int x, int y) {
@@ -44,7 +38,7 @@ public class Button implements Touchable
 			throw new IllegalArgumentException("No ButtonClickListener defined for button!!!");
 		}
 		
-		if(active && sprite.isVisible())
+		if(active && isVisible())
 		{
 			listener.buttonClick(this);
 			return true;
@@ -63,58 +57,17 @@ public class Button implements Touchable
 		return true;
 	}
 
-	public Rect getRect() {
-		// TODO Auto-generated method stub
-		return sprite.getRect();
-	}
-	
 	public void setActive(boolean active)
 	{
 		this.active = active;
 		if(active)
-			sprite.setFrame(0);
+			setFrame(0);
 		else
-			sprite.setFrame(1);
-	}
-	
-	public void setVisible(boolean visible)
-	{
-		sprite.setVisible(visible);
-		this.active = visible;
-	}
-	
-	public boolean isVisible()
-	{
-		return sprite.isVisible();
+			setFrame(1);
 	}
 	
 	public boolean isActive()
 	{
 		return active;
-	}
-	
-	public void setFlashing(boolean flashing)
-	{
-		sprite.setFlashing(flashing);
-	}
-	
-	public void setPos(int x, int y)
-	{
-		sprite.setPos(x, y);
-	}
-	
-	public int getX()
-	{
-		return sprite.getX();
-	}
-	
-	public int getY()
-	{
-		return sprite.getY();
-	}
-	
-	public Sprite getSprite()
-	{
-		return sprite;
 	}
 }

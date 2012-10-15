@@ -25,6 +25,7 @@ public abstract class Screen
 {
 	// les sprites
 	private ArrayList<Sprite>[] sprites;
+	private ArrayList<Sprite> uiSprites;
 	
 	// states
 	private int curState;
@@ -44,9 +45,8 @@ public abstract class Screen
 	// background
 	private Bitmap bitmapBG = null;
 	
-	private Sprite[] tempos = new Sprite[1000];
-	
 	protected boolean paused = false;
+	protected boolean drawDebugInfos = false;
 	
 	
 	@SuppressWarnings("unchecked")
@@ -59,10 +59,13 @@ public abstract class Screen
 			sprites[i] = new ArrayList<Sprite>(100);
 		}
 		
+		uiSprites = new ArrayList<Sprite>(25);
+		
 		tempoNewState = true;
 		fade = 255;
 		
 		game.getInput().unregisterAllTouchables();
+		game.getAudio().stopMusic();
 	}
 	
 	
@@ -87,8 +90,25 @@ public abstract class Screen
 				sprites[i].get(j).draw(c);
 			}
 		}
+		
 		// appelle la methode draw definie par la classe utilisateur
 		draw(c);
+		
+		// dessine les UISprites (Boutons, etc.)
+		for(int i = 0; i < uiSprites.size(); i++)
+		{
+			uiSprites.get(i).draw(c);
+		}
+		
+		drawUI(c);
+		
+		
+		//draw debug infos
+		if(drawDebugInfos)
+		{
+			
+		}
+
 	}
 
 
@@ -96,6 +116,15 @@ public abstract class Screen
 	{
 		newState = tempoNewState;
 		tempoNewState = false;
+		
+		// update les anims de Sprites
+//		for(int i = sprites.length - 1; i >= 0; i--)
+//		{
+//			for(int j = 0; j < sprites[i].size(); j++)
+//			{
+//				sprites[i].get(j).updateAnim(deltaTime);
+//			}
+//		}
 		
 		updateFader(deltaTime);
 		update(curState, newState, currentTime, deltaTime);
@@ -130,6 +159,11 @@ public abstract class Screen
 		return s;
 	}
 	
+	protected void addUISprite(Sprite s)
+	{
+		uiSprites.add(s);
+	}
+	
 	private void addSprite(Sprite s, int plane)
 	{
 		if(plane >= 0 && plane < sprites.length)
@@ -159,6 +193,8 @@ public abstract class Screen
 		{
 			sprites[i].clear();
 		}
+		
+		uiSprites.clear();
 	}
 	
 	public int getState()
@@ -180,6 +216,8 @@ public abstract class Screen
 	public abstract void update(int state, boolean newState, long currentTime, long deltaTime);
 	
 	public abstract void draw(Canvas canvas);
+	
+	public abstract void drawUI(Canvas canvas);
 	
 	public abstract void dispose();
 	
