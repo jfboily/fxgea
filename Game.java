@@ -97,6 +97,7 @@ public abstract class Game extends Activity
 		audio.pause();
 		logic.pause();
 		renderer.pause();
+		gamePause();
 		if(curScreen != null)
 		{
 			curScreen.setPaused(true);
@@ -113,6 +114,7 @@ public abstract class Game extends Activity
 	public void onResume()
 	{
 		super.onResume();
+		gameResume();
 		audio.resume();
 		logic.resume();
 		renderer.resume();
@@ -158,4 +160,13 @@ public abstract class Game extends Activity
 		return renderer.getCurrentTime();
 	}
 
+	public void gamePause()
+	{
+		
+	}
+	
+	public void gameResume()
+	{
+		
+	}
 }

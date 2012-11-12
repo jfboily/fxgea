@@ -34,7 +34,7 @@ public class LogicUpdater implements Runnable
 			screen.superUpdate(startTime, deltaTime);
 			try
 			{
-				Thread.sleep(2);
+				Thread.sleep(8);
 			}catch(Exception e){}
 			endTime = System.currentTimeMillis();
 			deltaTime = endTime - startTime;
